@@ -7,6 +7,7 @@ export default function MenuItem({
   onClick,
   isDestructive = false,
   hasBorder = true,
+  badge, // اضافه شدن این پراپ
 }) {
   return (
     <button
@@ -27,10 +28,19 @@ export default function MenuItem({
           {title}
         </span>
       </div>
-      <ChevronLeft
-        size={20}
-        className={isDestructive ? "text-red-500/50" : "text-text-muted"}
-      />
+
+      {/* کانتینر جدید برای قرار گرفتن تگ و فلش کنار هم */}
+      <div className="flex items-center gap-2">
+        {badge && (
+          <span className="px-2.5 py-1 bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-bold rounded-lg">
+            {badge}
+          </span>
+        )}
+        <ChevronLeft
+          size={20}
+          className={isDestructive ? "text-red-500/50" : "text-text-muted"}
+        />
+      </div>
     </button>
   );
 }

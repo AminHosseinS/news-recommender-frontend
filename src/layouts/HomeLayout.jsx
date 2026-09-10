@@ -45,7 +45,7 @@ export default function HomeLayout() {
       </main>
 
       {/* نویگیشن‌بار پایین */}
-      <nav className="sticky bottom-0 z-50 w-full bg-surface/85 backdrop-blur-lg border-t border-border-subtle pb-safe">
+      <nav className="sticky bottom-0 z-30 w-full bg-surface/85 backdrop-blur-lg border-t border-border-subtle pb-safe">
         <div className="flex justify-around items-center px-2 py-1.5">
           {NAV_ITEMS.map((item) => (
             <NavLink
