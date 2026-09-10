@@ -13,7 +13,7 @@ export default function App() {
   useEffect(() => initTheme(), [initTheme]);
   return (
     <div className="min-h-screen flex justify-center">
-      <div className="w-full max-w-md h-screen bg-slate-50 dark:bg-slate-950 overflow-hidden">
+      <div className="w-full max-w-md h-screen overflow-hidden">
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route element={<HomeLayout />}>

@@ -24,19 +24,19 @@
 :root {
   --theme-primary: #2563eb;
   --theme-bg: #f8fafc;
-  --theme-surface: #ffffff;
+  --theme-surface: rgba(0, 0, 0, 0.04);
   --theme-text-main: #0f172a;
   --theme-text-muted: #64748b;
-  --theme-border: #e2e8f0;
+  --theme-border: rgba(0, 0, 0, 0.05);
 }
 
 .dark {
   --theme-primary: #3b82f6;
   --theme-bg: #020617;
-  --theme-surface: #0f172a;
+  --theme-surface: rgba(255, 255, 255, 0.04);
   --theme-text-main: #f1f5f9;
-  --theme-text-muted: #94a3b8;
-  --theme-border: #1e293b;
+  --theme-text-muted: #8a8f98;
+  --theme-border: rgba(255, 255, 255, 0.05);
 }
 
 @layer base {
