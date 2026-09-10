@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Estedad";
+  src: url("./assets/fonts/Estedad.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: "Estedad", system-ui, sans-serif;
+
+  --color-primary: var(--theme-primary);
+  --color-background: var(--theme-bg);
+  --color-surface: var(--theme-surface);
+  --color-text-main: var(--theme-text-main);
+  --color-text-muted: var(--theme-text-muted);
+  --color-border-subtle: var(--theme-border);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --theme-primary: #2563eb;
+  --theme-bg: #f8fafc;
+  --theme-surface: #ffffff;
+  --theme-text-main: #0f172a;
+  --theme-text-muted: #64748b;
+  --theme-border: #e2e8f0;
+}
+
+.dark {
+  --theme-primary: #3b82f6;
+  --theme-bg: #020617;
+  --theme-surface: #0f172a;
+  --theme-text-main: #f1f5f9;
+  --theme-text-muted: #94a3b8;
+  --theme-border: #1e293b;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-200 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300;
+  }
+}
