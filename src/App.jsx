@@ -8,6 +8,7 @@ import { useThemeStore } from "./store/useThemeStore";
 import { useEffect } from "react";
 import SearchResultPage from "./pages/SearchResultPage";
 import BookmarkNewsPage from "./pages/profile/BookmarkNewsPage";
+import FavoriteTagsPage from "./pages/profile/FavoriteTagsPage";
 
 export default function App() {
   const initTheme = useThemeStore((state) => state.initTheme);
@@ -20,6 +21,7 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile/bookmarks" element={<BookmarkNewsPage />} />
+          <Route path="/profile/favoriteTags" element={<FavoriteTagsPage />} />
           <Route element={<HomeLayout />}>
             <Route path="/" element={<NewspaperPage />} />
             <Route path="/showcase" element={<ShowCasePage />} />
