@@ -26,7 +26,7 @@ export default function ProfilePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background p-4 pb-24" dir="rtl">
+    <div className="h-full bg-background p-4 pb-24">
       <ProfileHeader phoneNumber="+98 912 345 6789" />
 
       <div className="bg-surface rounded-2xl overflow-hidden mb-6 border border-border-subtle">
