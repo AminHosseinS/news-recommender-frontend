@@ -27,17 +27,12 @@ export default function BookmarkNewsPage() {
   };
 
   return (
-    // حذف pb-20 (پدینگ پایین برای نویگیشن بار) چون این صفحه دیگر نویگیشن ندارد
-    <div
-      dir="rtl"
-      className="w-full h-[100dvh] bg-background font-sans overflow-y-auto pb-6"
-    >
-      {/* هدر چسبان با دکمه بازگشت */}
-      <div className="w-full sticky top-0 z-10 p-4 pt-6 bg-background border-b border-border-subtle">
+    <div className="w-full h-full bg-background">
+      <div className="w-full sticky top-0 z-10 p-4 pt-6 bg-background border-b-2 border-border-subtle">
         <div className="max-w-md mx-auto px-2 flex items-center gap-3">
           <button
             onClick={() => navigate(-1)}
-            className="p-1.5 -mr-2 rounded-full text-text-muted hover:bg-surface hover:text-text-main transition-colors"
+            className="p-1.5 -mr-2 rounded-full text-primary hover:bg-surface hover:text-text-main transition-colors"
           >
             <ArrowRightIcon className="w-6 h-6" />
           </button>
@@ -46,7 +41,7 @@ export default function BookmarkNewsPage() {
         </div>
       </div>
 
-      <div className="max-w-md mx-auto p-4 pt-6">
+      <div className="max-w-md bg-surface/80 min-h-full mx-auto p-4 pt-6">
         <NewsList
           items={MOCK_BOOKMARKS}
           onItemClick={handleNewsClick}

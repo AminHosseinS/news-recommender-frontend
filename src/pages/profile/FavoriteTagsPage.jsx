@@ -5,38 +5,8 @@ import {
   XMarkIcon,
   PlusIcon,
 } from "@heroicons/react/24/outline";
-
-const TAGS_DATA = [
-  { name: "ورزشی", slug: "sports" },
-  { name: "فوتبال ایران", slug: "iranian-football" },
-  { name: "فوتبال جهان", slug: "world-football" },
-  { name: "اقتصادی", slug: "economy" },
-  { name: "طلا و ارز", slug: "gold-and-currency" },
-  { name: "بورس", slug: "stock-market" },
-  { name: "خودرو", slug: "automotive" },
-  { name: "مسکن و راه", slug: "housing-and-roads" },
-  { name: "سیاسی", slug: "politics" },
-  { name: "دولت", slug: "government" },
-  { name: "مجلس", slug: "parliament" },
-  { name: "انتخابات", slug: "elections" },
-  { name: "بین‌الملل", slug: "international" },
-  { name: "خاورمیانه", slug: "middle-east" },
-  { name: "اروپا و آمریکا", slug: "europe-and-america" },
-  { name: "اجتماعی", slug: "society" },
-  { name: "حوادث", slug: "incidents" },
-  { name: "محیط زیست", slug: "environment" },
-  { name: "دادگاه و قضا", slug: "courts-and-judiciary" },
-  { name: "علم و فناوری", slug: "science-and-technology" },
-  { name: "اینترنت", slug: "internet" },
-  { name: "هوش مصنوعی", slug: "artificial-intelligence" },
-  { name: "سلامت و پزشکی", slug: "health-and-medicine" },
-  { name: "دانشگاه و آموزش", slug: "university-and-education" },
-  { name: "فرهنگ و هنر", slug: "culture-and-art" },
-  { name: "سینما و تلویزیون", slug: "cinema-and-television" },
-  { name: "موسیقی", slug: "music" },
-  { name: "کتاب و ادبیات", slug: "books-and-literature" },
-  { name: "گردشگری", slug: "tourism" },
-];
+import { TAGS_DATA } from "../../utils/tags";
+import { toPersianNumber } from "../../utils/convertToPersianNumber";
 
 export default function FavoriteTagsPage() {
   const navigate = useNavigate();
@@ -68,24 +38,18 @@ export default function FavoriteTagsPage() {
   const normalTags = TAGS_DATA.filter((tag) => !favorites.includes(tag.slug));
 
   return (
-    // کانتینر اصلی flex-col و محدود شده به اندازه موبایل (max-w-md)
-    <div
-      dir="rtl"
-      className="w-full max-w-md mx-auto h-[100dvh] bg-background font-sans flex flex-col"
-    >
-      {/* هدر - با ویژگی shrink-0 که ثابت بماند */}
-      <div className="w-full p-4 pt-6 border-b border-border-subtle shrink-0 flex items-center gap-3">
+    <div className="w-full max-w-md mx-auto h-full bg-background flex flex-col">
+      <div className="w-full p-4 pt-6 bg-background border-b-2 border-border-subtle flex items-center gap-3">
         <button
           onClick={() => navigate(-1)}
-          className="p-1.5 -mr-2 rounded-full text-text-muted hover:bg-surface hover:text-text-main transition-colors"
+          className="p-1.5 -mr-2 rounded-full text-primary hover:bg-surface hover:text-text-main transition-colors"
         >
           <ArrowRightIcon className="w-6 h-6" />
         </button>
         <h1 className="text-xl font-bold text-text-main">موضوعات مورد علاقه</h1>
       </div>
 
-      {/* محتوای بدنه - با ویژگی flex-1 فضای خالی را پر می‌کند و اسکرول می‌خورد */}
-      <div className="w-full flex-1 overflow-y-auto p-4">
+      <div className="w-full p-4 bg-surface/50">
         <div className="mb-10">
           <div className="flex justify-between items-center mb-4 px-1">
             <h2 className="text-sm font-bold text-text-main">
@@ -94,7 +58,7 @@ export default function FavoriteTagsPage() {
             <span
               className={`text-xs font-medium ${isLimitReached ? "text-red-500" : "text-text-muted"}`}
             >
-              {favorites.length} از ۵
+              {toPersianNumber(favorites.length)} از ۵
             </span>
           </div>
 
@@ -150,8 +114,6 @@ export default function FavoriteTagsPage() {
           </div>
         </div>
       </div>
-
-      {/* دکمه بدون div اضافه - با حاشیه‌های متناسب کاملاً در جای درست می‌نشیند */}
       <button
         onClick={handleUpdate}
         className="mx-4 mb-6 mt-2 shrink-0 py-3.5 bg-primary text-white text-base font-bold rounded-2xl hover:bg-primary/90 transition-colors shadow-sm"
