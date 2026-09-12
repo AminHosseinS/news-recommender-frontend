@@ -21,7 +21,7 @@ export default function NewsList({
           key={item.id}
           id={item.id}
           title={item.title}
-          summary={item.summary}
+          summary={item.ai_summary}
           onClick={onItemClick}
         />
       ))}

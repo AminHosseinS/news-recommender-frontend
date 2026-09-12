@@ -1,30 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import NewsList from "../../components/NewsList/NewsList";
-
-const MOCK_BOOKMARKS = [
-  {
-    id: 1188957,
-    title:
-      "نسل جدید هوش مصنوعی؛ چگونه ابزارهای جدید بازار کار را تغییر می‌دهند؟",
-    summary:
-      "با معرفی مدل‌های زبانی جدید، بسیاری از مشاغل با تحولات جدی روبه‌رو شده‌اند. این مقاله به بررسی تاثیرات هوش مصنوعی بر مشاغل برنامه‌نویسی، تولید محتوا و پشتیبانی مشتریان می‌پردازد.",
-  },
-  {
-    id: 1188958,
-    title: "زمان‌بندی جدید قطارهای سریع‌السیر تهران - مشهد اعلام شد",
-    summary:
-      "شرکت راه‌آهن جدول زمان‌بندی جدید قطارهای سریع‌السیر را برای نیمه دوم سال منتشر کرد. مسافران می‌توانند بلیت‌های خود را از طریق اپلیکیشن‌های مجاز خریداری کنند.",
-  },
-];
+import { useGetBookmarksNews } from "../../hooks/profile/useGetBookmarkNews";
 
 export default function BookmarkNewsPage() {
   const navigate = useNavigate();
+  const { data, isPending, isError } = useGetBookmarksNews();
+  const [bookmarkNews, setBookmarkNews] = useState([]);
 
   const handleNewsClick = (id) => {
     console.log(`انتقال به خبر بوکمارک شده شماره: ${id}`);
   };
+  useEffect(() => {
+    if (data) {
+      setBookmarkNews(data?.data);
+    }
+  }, [isPending, isError]);
+  if (isPending) return;
 
   return (
     <div className="w-full h-full bg-background">
@@ -43,7 +36,7 @@ export default function BookmarkNewsPage() {
 
       <div className="max-w-md bg-surface/80 min-h-full mx-auto p-4 pt-6">
         <NewsList
-          items={MOCK_BOOKMARKS}
+          items={bookmarkNews}
           onItemClick={handleNewsClick}
           emptyMessage="شما هنوز هیچ خبری را ذخیره نکرده‌اید."
         />
