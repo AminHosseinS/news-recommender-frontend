@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowRightIcon,
@@ -7,15 +7,16 @@ import {
 } from "@heroicons/react/24/outline";
 import { TAGS_DATA } from "../../utils/tags";
 import { toPersianNumber } from "../../utils/convertToPersianNumber";
+import { useGetFavoriteTags } from "../../hooks/profile/useGetFavoriteTags";
+import toast from "react-hot-toast";
+import { useUpdateFavoriteTags } from "../../hooks/profile/useUpdateFavoriteTags";
 
 export default function FavoriteTagsPage() {
   const navigate = useNavigate();
 
-  const [favorites, setFavorites] = useState([
-    "artificial-intelligence",
-    "world-football",
-    "economy",
-  ]);
+  const [favorites, setFavorites] = useState([]);
+  const { data, isPending, isError } = useGetFavoriteTags();
+  const { mutateAsync, isPending: updatePending } = useUpdateFavoriteTags();
 
   const isLimitReached = favorites.length >= 5;
 
@@ -29,16 +30,32 @@ export default function FavoriteTagsPage() {
     }
   };
 
-  const handleUpdate = () => {
-    console.log("لیست علاقه‌مندی‌های جدید ذخیره شد:", favorites);
-    navigate(-1);
+  const handleUpdate = async () => {
+    try {
+      await mutateAsync({ tags: favorites });
+      navigate(-1);
+      toast.success("موضوعات مورد علاقه شما با موفقیت به‌روز شد.");
+    } catch (err) {
+      toast.error("لطفا مجدد تلاش کنید.");
+    }
   };
+
+  useEffect(() => {
+    if (data) {
+      setFavorites(data?.tags);
+    }
+  }, [isPending]);
 
   const favoriteTags = TAGS_DATA.filter((tag) => favorites.includes(tag.slug));
   const normalTags = TAGS_DATA.filter((tag) => !favorites.includes(tag.slug));
+  if (isPending) return;
+  if (isError) {
+    toast.error("لطفا مجدد تلاش کنید.");
+    return;
+  }
 
   return (
-    <div className="w-full max-w-md mx-auto h-full bg-background flex flex-col">
+    <div className="w-full max-w-md mx-auto h-screen bg-background flex flex-col">
       <div className="w-full p-4 pt-6 bg-background border-b-2 border-border-subtle flex items-center gap-3">
         <button
           onClick={() => navigate(-1)}
@@ -49,7 +66,7 @@ export default function FavoriteTagsPage() {
         <h1 className="text-xl font-bold text-text-main">موضوعات مورد علاقه</h1>
       </div>
 
-      <div className="w-full p-4 bg-surface/50">
+      <div className="w-full p-4 bg-surface/50 overflow-y-auto">
         <div className="mb-10">
           <div className="flex justify-between items-center mb-4 px-1">
             <h2 className="text-sm font-bold text-text-main">

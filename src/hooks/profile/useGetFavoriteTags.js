@@ -7,7 +7,7 @@ export const getFavoriteTags = () => {
 
 export const useGetFavoriteTags = () => {
   return useQuery({
-    queryKey: "favorite-tags",
+    queryKey: ["favorite-tags"],
     queryFn: getFavoriteTags,
   });
 };

@@ -21,6 +21,6 @@ createRoot(document.getElementById("root")).render(
         <App />
       </BrowserRouter>
     </QueryClientProvider>
-    <Toaster position="top-right" />
+    <Toaster position="top-center" />
   </StrictMode>,
 );
