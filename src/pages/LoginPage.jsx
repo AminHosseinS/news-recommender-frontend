@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PhoneStep from "../components/login/PhoneStep";
 import OtpStep from "../components/login/OtpStep";
+import { useSendOTP } from "../hooks/authentication/useSendOTP";
 
 export default function LoginPage() {
   const [step, setStep] = useState(1);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState(["", "", "", "", ""]);
   const navigate = useNavigate();
+  const { mutateAsync: sendOtp, isPending, isError } = useSendOTP();
 
-  const handlePhoneSubmit = () => {
-    console.log("ارسال درخواست کد تایید برای:", phoneNumber);
+  const handlePhoneSubmit = async () => {
+    const res = await sendOtp({
+      phone_number: phoneNumber,
+    });
     setStep(2);
   };
 
@@ -30,10 +34,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div
-      dir="rtl"
-      className="w-full max-w-md mx-auto h-full bg-background font-sans"
-    >
+    <div className="w-full max-w-md mx-auto h-full bg-background font-sans">
       {step === 1 ? (
         <PhoneStep
           phoneNumber={phoneNumber}
