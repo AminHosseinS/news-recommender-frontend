@@ -11,7 +11,6 @@ import {
   UserIcon as UserSolid,
 } from "@heroicons/react/24/solid";
 
-// استخراج دیتای منوها برای جلوگیری از تکرار کد (DRY)
 const NAV_ITEMS = [
   {
     path: "/showcase",
@@ -35,17 +34,12 @@ const NAV_ITEMS = [
 
 export default function HomeLayout() {
   return (
-    <div
-      className="flex flex-col h-screen w-full bg-background text-text-main"
-      dir="rtl"
-    >
-      {/* بخش محتوای اصلی */}
+    <div className="flex flex-col h-screen w-full bg-background text-text-main">
       <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
 
-      {/* نویگیشن‌بار پایین */}
-      <nav className="sticky bottom-0 z-30 w-full bg-surface/85 backdrop-blur-lg border-t border-border-subtle pb-safe">
+      <nav className="sticky bottom-0 z-30 w-full bg-surface/50 border-t border-border-subtle pb-safe">
         <div className="flex justify-around items-center px-2 py-1.5">
           {NAV_ITEMS.map((item) => (
             <NavLink
@@ -63,7 +57,6 @@ export default function HomeLayout() {
                 const Icon = isActive ? item.SolidIcon : item.OutlineIcon;
                 return (
                   <>
-                    {/* حرکت نرم آیکون به سمت بالا در حالت فعال */}
                     <div
                       className={`transition-transform duration-300 ${
                         isActive ? "-translate-y-0.5" : "translate-y-0"
@@ -73,9 +66,7 @@ export default function HomeLayout() {
                     </div>
 
                     <span
-                      className={`text-[10px] font-medium transition-all duration-300 ${
-                        isActive ? "opacity-100" : "opacity-80"
-                      }`}
+                      className={`text-xs font-medium transition-all duration-300`}
                     >
                       {item.label}
                     </span>
