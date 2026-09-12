@@ -13,9 +13,7 @@ export default function PhoneStep({ phoneNumber, setPhoneNumber, onNext }) {
       onSubmit={handleSubmit}
       className="w-full h-full flex flex-col animate-fade-in p-4"
     >
-      {/* بخش بالایی: لوگو و اینپوت */}
       <div className="flex-1 flex flex-col items-center pt-16">
-        {/* لوگو فرضی */}
         <div className="w-16 h-16 bg-primary/10 rounded-3xl mb-8 flex items-center justify-center">
           <svg
             fill="none"
@@ -57,7 +55,6 @@ export default function PhoneStep({ phoneNumber, setPhoneNumber, onNext }) {
         </div>
       </div>
 
-      {/* بخش پایینی: دکمه که به لطف flex-1 و mt-auto می‌چسبد به کف صفحه */}
       <div className="w-full max-w-sm mx-auto mt-auto pb-6 pt-4">
         <button
           type="submit"

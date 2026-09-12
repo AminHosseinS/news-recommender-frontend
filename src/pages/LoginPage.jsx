@@ -21,7 +21,7 @@ export default function LoginPage() {
 
   const handleResendOtp = () => {
     console.log("کد جدید برای شماره ارسال شد:", phoneNumber);
-    setOtp(["", "", "", "", ""]); // ریست کردن کد قبلی
+    setOtp(["", "", "", "", ""]);
   };
 
   const handleBack = () => {
@@ -32,7 +32,7 @@ export default function LoginPage() {
   return (
     <div
       dir="rtl"
-      className="w-full max-w-md mx-auto h-[100dvh] bg-background font-sans"
+      className="w-full max-w-md mx-auto h-full bg-background font-sans"
     >
       {step === 1 ? (
         <PhoneStep

@@ -26,11 +26,7 @@ export default function SearchResultPage() {
   };
 
   return (
-    // پس‌زمینه اصلی به bg-background تغییر کرد تا با کل اپ یکپارچه بشه
-    <div
-      dir="rtl"
-      className="w-full min-h-[100dvh] bg-background font-sans pb-20"
-    >
+    <div className="w-full h-full bg-background">
       <div className="w-full sticky top-0 z-10 p-4 pt-6 bg-background">
         <div className="max-w-md mx-auto">
           <div className="relative w-full">
@@ -38,7 +34,6 @@ export default function SearchResultPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              // اینپوت سرچ کمی تیره تر (bg-surface) شد تا روی صفحه سفید مشخص باشه
               className="w-full bg-surface text-text-main border border-border-subtle rounded-3xl py-3 pr-12 pl-4 focus:outline-none focus:border-primary transition-colors text-sm"
             />
             <MagnifyingGlassIcon className="w-5 h-5 text-text-muted absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -46,7 +41,7 @@ export default function SearchResultPage() {
         </div>
       </div>
 
-      <div className="max-w-md mx-auto p-4 pt-2">
+      <div className="max-w-md mx-auto p-4 pt-2 bg-surface">
         <p className="text-xs text-text-muted mb-4 px-2 font-medium">
           {MOCK_RESULTS.length} نتیجه برای «{searchQuery}»
         </p>

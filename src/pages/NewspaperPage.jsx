@@ -42,7 +42,6 @@ export default function NewspaperPage() {
     setIsLoading(true);
     isFetchingRef.current = true;
 
-    // شبیه‌سازی تاخیر دریافت از بک‌اند
     setTimeout(() => {
       const newNews = generateFakeNews(pageNumber);
       setNewsList((prev) => [...prev, ...newNews]);
@@ -55,9 +54,6 @@ export default function NewspaperPage() {
   const handleSlideChange = (swiper) => {
     const activeIndex = swiper.activeIndex;
     const totalItems = newsList.length;
-
-    // توافق بک‌اند: ارسال درخواست در ایندکس‌های ۵، ۱۵، ۲۵ و...
-    // یعنی زمانی که فاصله تا اسلاید آخر دقیقاً ۵ مورد باشد
     if (totalItems - activeIndex === 5 && !isFetchingRef.current) {
       loadMoreNews(page + 1);
     }
@@ -66,7 +62,7 @@ export default function NewspaperPage() {
   return (
     <div
       dir="rtl"
-      className="w-full h-full bg-background flex justify-center font-sans overflow-hidden"
+      className="w-full h-full bg-surface/25 flex justify-center font-sans overflow-hidden"
     >
       <Swiper
         direction="vertical"
