@@ -8,8 +8,6 @@ import BaleSyncModal from "../components/profile/BaleSyncModal";
 export default function ProfilePage() {
   const navigate = useNavigate();
   const [isBaleModalOpen, setIsBaleModalOpen] = useState(false);
-
-  // برای تست می‌تونی این رو false کنی تا مودال باز بشه
   const [isBaleConnected, setIsBaleConnected] = useState(false);
 
   const menuItems = [
@@ -40,10 +38,7 @@ export default function ProfilePage() {
   ];
 
   return (
-    <div
-      dir="rtl"
-      className="h-[100dvh] bg-background p-4 flex flex-col font-sans"
-    >
+    <div className="h-full bg-surface/25 p-4 flex flex-col font-sans">
       <ProfileHeader phoneNumber="+98 912 345 6789" />
 
       <div className="bg-surface rounded-2xl overflow-hidden mb-6 border border-border-subtle mt-6">

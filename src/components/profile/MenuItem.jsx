@@ -7,12 +7,12 @@ export default function MenuItem({
   onClick,
   isDestructive = false,
   hasBorder = true,
-  badge, // اضافه شدن این پراپ
+  badge,
 }) {
   return (
     <button
       onClick={onClick}
-      className={`w-full flex items-center justify-between p-4 transition-colors hover:bg-surface/50 active:bg-surface ${
+      className={`w-full flex items-center bg-background justify-between p-4 transition-colors hover:bg-surface/50 active:bg-surface ${
         hasBorder ? "border-b border-border-subtle" : ""
       }`}
     >

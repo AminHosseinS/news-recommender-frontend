@@ -14,8 +14,8 @@ export default function ProfileHeader({ phoneNumber }) {
         {theme === "dark" ? <Sun size={22} /> : <Moon size={22} />}
       </button>
 
-      <div className="w-24 h-24 bg-surface border-2 border-border-subtle rounded-full flex items-center justify-center mb-4 shadow-sm">
-        <User size={40} className="text-text-muted" strokeWidth={1.5} />
+      <div className="w-24 h-24 bg-surface border-2 border-border-subtle rounded-full flex items-center justify-center mb-4">
+        <User size={40} className="text-primary" strokeWidth={1.5} />
       </div>
       <h1 className="text-xl font-bold mb-1 text-text-main font-sans">
         حساب کاربری
