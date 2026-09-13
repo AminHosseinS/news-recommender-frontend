@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { TAGS_DATA } from "../utils/tags";
+import { useSearch } from "../hooks/feed/useSearch";
+import { useNavigate } from "react-router-dom";
 
 export default function ShowCasePage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const userFavorites = [
     "artificial-intelligence",
@@ -12,8 +15,12 @@ export default function ShowCasePage() {
   ];
 
   const handleSearchSubmit = (e) => {
-    if (e.key === "Enter" && searchQuery.trim() !== "") {
-      console.log(`جستجوی اخبار با عبارت: ${searchQuery}`);
+    if (
+      e.key === "Enter" &&
+      searchQuery.trim() !== "" &&
+      searchQuery.length > 1
+    ) {
+      navigate(`/showcase/searchResult?q=${encodeURIComponent(searchQuery)}`);
     }
   };
 
