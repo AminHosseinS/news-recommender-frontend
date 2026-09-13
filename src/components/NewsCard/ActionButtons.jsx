@@ -14,18 +14,9 @@ export default function ActionButtons({
   isBookmarked,
   onLikeToggle,
   onBookmarkToggle,
+  onShare,
   url,
 }) {
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: "خبر جدید", url });
-      } catch (err) {
-        console.log("اشتراک‌گذاری لغو شد", err);
-      }
-    }
-  };
-
   return (
     <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border-subtle">
       <button
@@ -59,7 +50,7 @@ export default function ActionButtons({
       </button>
 
       <button
-        onClick={handleShare}
+        onClick={onShare}
         className="flex items-center justify-center p-2 rounded-full text-text-muted hover:bg-surface transition-colors mr-auto"
       >
         <ShareIcon className="w-6 h-6" />

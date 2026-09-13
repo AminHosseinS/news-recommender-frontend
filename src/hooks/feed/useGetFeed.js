@@ -5,9 +5,7 @@ const LIMIT = 10;
 
 export const getFeed = ({ pageParam }) => {
   return api.get("feed/web", {
-    offest: pageParam,
-    limit: LIMIT,
-    refresh: pageParam === 0,
+    params: { offset: pageParam, limit: LIMIT, refresh: pageParam === 0 },
   });
 };
 

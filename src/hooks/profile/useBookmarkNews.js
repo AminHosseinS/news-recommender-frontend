@@ -7,6 +7,6 @@ export const bookmarkNews = (news_id) => {
 
 export const useBookmarkNews = () => {
   return useMutation({
-    mutationFn: bookmarkNews,
+    mutationFn: (news_id) => bookmarkNews(news_id),
   });
 };
