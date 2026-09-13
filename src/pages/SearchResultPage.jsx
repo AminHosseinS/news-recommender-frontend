@@ -50,11 +50,7 @@ export default function SearchResultPage() {
           {toPersianNumber(data.length)} نتیجه برای «{searchQuery}»
         </p>
 
-        <NewsList
-          items={data}
-          onItemClick={handleNewsClick}
-          emptyMessage="هیچ خبری با این عبارت پیدا نشد."
-        />
+        <NewsList items={data} emptyMessage="هیچ خبری با این عبارت پیدا نشد." />
       </div>
     </div>
   );

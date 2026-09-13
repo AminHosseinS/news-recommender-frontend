@@ -9,9 +9,6 @@ export default function BookmarkNewsPage() {
   const { data, isPending, isError } = useGetBookmarksNews();
   const [bookmarkNews, setBookmarkNews] = useState([]);
 
-  const handleNewsClick = (id) => {
-    console.log(`انتقال به خبر بوکمارک شده شماره: ${id}`);
-  };
   useEffect(() => {
     if (data) {
       setBookmarkNews(data?.data);
@@ -37,7 +34,6 @@ export default function BookmarkNewsPage() {
       <div className="max-w-md bg-surface/80 min-h-full mx-auto p-4 pt-6">
         <NewsList
           items={bookmarkNews}
-          onItemClick={handleNewsClick}
           emptyMessage="شما هنوز هیچ خبری را ذخیره نکرده‌اید."
         />
       </div>

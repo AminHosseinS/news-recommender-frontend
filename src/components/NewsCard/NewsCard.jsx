@@ -5,6 +5,7 @@ import {
   EllipsisHorizontalIcon,
   EyeSlashIcon,
 } from "@heroicons/react/24/outline";
+import { TAGS_MAP } from "../../utils/tags";
 
 export default function NewsCard({ news }) {
   const [isLiked, setIsLiked] = useState(news.isLiked);
@@ -46,9 +47,9 @@ export default function NewsCard({ news }) {
         className="w-full max-w-md bg-background rounded-2xl shadow-sm border border-border-subtle overflow-hidden select-none"
         onDoubleClick={handleDoubleClick}
       >
-        {news.image && (
+        {news.image_url && (
           <img
-            src={news.image}
+            src={news.image_url}
             alt={news.title}
             className="w-full h-48 object-cover cursor-pointer"
           />
@@ -94,11 +95,11 @@ export default function NewsCard({ news }) {
           </div>
 
           <p className="text-sm text-text-muted leading-relaxed text-justify mb-4">
-            {news.content}
+            {news.ai_summary}
           </p>
 
           <a
-            href={news.url}
+            href={news.link}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-primary font-medium hover:underline block mb-4"
@@ -109,7 +110,7 @@ export default function NewsCard({ news }) {
           {news.tags && news.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-2">
               {news.tags.map((tag, index) => (
-                <Tag key={index} text={tag} />
+                <Tag key={index} text={TAGS_MAP[tag]} />
               ))}
             </div>
           )}

@@ -2,68 +2,37 @@ import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import NewsCard from "../components/NewsCard/NewsCard";
-
-// تابع ساخت دیتای فیک داخل خود صفحه
-const generateFakeNews = (page) => {
-  const limit = 10;
-  return Array.from({ length: limit }).map((_, index) => {
-    const uniqueId = (page - 1) * limit + index + 1;
-    return {
-      id: uniqueId,
-      // عنوان خبر به همراه شماره برای تست اسکرول بی‌نهایت
-      title: `تقویم کامل سال ۱۴۰۵ هجری شمسی (خبر ${uniqueId})`,
-      content: `عصر ایران تقویم جامع سال ۱۴۰۵ را منتشر کرد که شامل تمامی مناسبت‌های مذهبی، روزهای ملی و تعطیلات رسمی است. این ابزار آنلاین امکان مشاهده همزمان تاریخ‌های شمسی، میلادی و قمری را برای برنامه‌ریزی دقیق‌تر کاربران فراهم می‌کند.
-      
-این تقویم با هدف تسهیل برنامه‌ریزی کاری، سفر و رویدادهای خانوادگی طراحی شده و دسترسی به آن بدون نیاز به دانلود اپلیکیشن امکان‌پذیر است.`,
-      url: "https://www.asriran.com/fa/news/1188955",
-      image:
-        "https://cdn.asriran.com/media/f920c369ZTp3ZWJwfGY6MjU5MTc1OC5qcGd8ZnVpOjI0NzU1NzF8bDpmYXx2OjE.webp",
-      // تبدیل تگ انگلیسی به فارسی برای سازگاری با ظاهر سایت
-      tags: ["جامعه", "تقویم", "۱۴۰۵"],
-      isLiked: false,
-      isBookmarked: false,
-    };
-  });
-};
+import { useGetFeed } from "../hooks/feed/useGetFeed";
 
 export default function NewspaperPage() {
-  const [newsList, setNewsList] = useState([]);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const isFetchingRef = useRef(false);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
+    useGetFeed();
 
-  useEffect(() => {
-    loadMoreNews(1);
-  }, []);
+  const newsList = data?.pages.flatMap((page) => page.data || []) ?? [];
+  const totalItems = newsList.length;
 
-  const loadMoreNews = (pageNumber) => {
-    if (isFetchingRef.current) return;
-
-    setIsLoading(true);
-    isFetchingRef.current = true;
-
-    setTimeout(() => {
-      const newNews = generateFakeNews(pageNumber);
-      setNewsList((prev) => [...prev, ...newNews]);
-      setPage(pageNumber);
-      setIsLoading(false);
-      isFetchingRef.current = false;
-    }, 800);
-  };
+  const PREFETCH_THRESHOLD = 5;
 
   const handleSlideChange = (swiper) => {
-    const activeIndex = swiper.activeIndex;
-    const totalItems = newsList.length;
-    if (totalItems - activeIndex === 5 && !isFetchingRef.current) {
-      loadMoreNews(page + 1);
+    const currentIndex = swiper.activeIndex;
+    setActiveIndex(currentIndex);
+
+    if (
+      currentIndex >= totalItems - PREFETCH_THRESHOLD &&
+      hasNextPage &&
+      !isFetchingNextPage
+    ) {
+      console.log("nextone");
+
+      fetchNextPage();
     }
   };
 
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  if (isPending) return;
   return (
-    <div
-      dir="rtl"
-      className="w-full h-full bg-surface/25 flex justify-center font-sans overflow-hidden"
-    >
+    <div className="w-full h-full bg-surface/25 flex justify-center font-sans overflow-hidden">
       <Swiper
         direction="vertical"
         className="w-full max-w-lg h-full"
@@ -76,7 +45,7 @@ export default function NewspaperPage() {
           </SwiperSlide>
         ))}
 
-        {isLoading && (
+        {isFetchingNextPage && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 bg-background text-primary px-4 py-2 rounded-full shadow-md text-sm border border-border-subtle">
             در حال دریافت اخبار...
           </div>

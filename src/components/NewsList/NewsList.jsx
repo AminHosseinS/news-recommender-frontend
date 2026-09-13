@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import NewsListItem from "./NewsListItem";
+import NewsInfoModal from "../NewsCard/NewsInfoModal";
+import { useSearchParams } from "react-router-dom";
 
 export default function NewsList({
   items,
-  onItemClick,
   emptyMessage = "هیچ موردی یافت نشد.",
 }) {
   if (!items || items.length === 0) {
@@ -13,6 +14,14 @@ export default function NewsList({
       </div>
     );
   }
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const onItemClick = (id) => {
+    searchParams.set("news_id", id);
+    setSearchParams(searchParams);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -22,9 +31,15 @@ export default function NewsList({
           id={item.id}
           title={item.title}
           summary={item.ai_summary}
-          onClick={onItemClick}
+          onClick={() => onItemClick(item.id)}
         />
       ))}
+      {isModalOpen && (
+        <NewsInfoModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 }
