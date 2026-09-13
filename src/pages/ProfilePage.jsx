@@ -4,11 +4,13 @@ import { MessageCircle, Tags, Bookmark, LogOut } from "lucide-react";
 import MenuItem from "../components/profile/MenuItem";
 import ProfileHeader from "../components/profile/ProfileHeader";
 import BaleSyncModal from "../components/profile/BaleSyncModal";
+import { useGetInfo } from "../hooks/profile/useGetInfo";
+import toast from "react-hot-toast";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
   const [isBaleModalOpen, setIsBaleModalOpen] = useState(false);
-  const [isBaleConnected, setIsBaleConnected] = useState(false);
+  const { data, isPending, isError } = useGetInfo();
 
   const menuItems = [
     {
@@ -28,18 +30,19 @@ export default function ProfilePage() {
       title: "اتصال به پیامرسان بله",
       icon: <MessageCircle size={22} />,
       action: () => {
-        // فقط زمانی مودال باز میشه که کاربر متصل نباشه
-        if (!isBaleConnected) {
+        if (!data?.is_connected_to_bale) {
           setIsBaleModalOpen(true);
         }
       },
-      badge: isBaleConnected ? "متصل" : null,
+      badge: data?.is_connected_to_bale ? "متصل" : null,
     },
   ];
+  if (isPending) return;
+  if (isError) toast.error("لطفا دوباره تلاش کنید.");
 
   return (
     <div className="h-full bg-surface/25 p-4 flex flex-col font-sans">
-      <ProfileHeader phoneNumber="+98 912 345 6789" />
+      <ProfileHeader phoneNumber={data?.phone_number} />
 
       <div className="bg-surface rounded-2xl overflow-hidden mb-6 border border-border-subtle mt-6">
         {menuItems.map((item, index) => (
